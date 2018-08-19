@@ -1,3 +1,19 @@
+# x86 ftc app
+This repo allows you to use the ftc app on x86 devices. This is only to allow the app to run on simulators and should not be used in competition (this makes the app competition illegal). 
+
+### Discalmer
+Vuforia will not work.
+
+### Why?
+Primary so that the ftc_app can be used inside of a simulator. That way you can do things like:
+
+* Unit tests
+* Robot simulators
+* Dashboards
+* Collect Data
+* Wireless RC
+* Wireless Debuging / app installation
+
 ## Welcome!
 This GitHub repository contains the source code that is used to build an Android app to control a *FIRST* Tech Challenge competition robot.  To use this SDK, download/clone the entire project to your local computer.
 
