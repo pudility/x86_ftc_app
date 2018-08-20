@@ -14,6 +14,55 @@ Primary so that the ftc_app can be used inside of a simulator. That way you can 
 * Wireless RC
 * Wireless Debuging / app installation
 
+### How
+*this is untested*. In order to have vuforia only on armv7a phones I changed the `sourceSets` method in `build.common.gradle` (which is applied to the teamcode module) to:
+
+```groovy
+sourceSets {
+    main {
+        jni.srcDirs = []
+        jniLibs.srcDir rootProject.file('libs')
+    }
+
+    armv7a {
+        jniLibs.srcDir rootProject.file('armeabi-v7a')
+    }
+}
+```
+This maintains the `main` method but only applies the vuforia library if to armeabi-v7a archetectures. 
+
+In order to get the build to run on x86 machines I modified the build types to also include `"x86"`:
+
+```groovy
+buildTypes {
+    release {
+        // Disable debugging for release versions so it can be uploaded to Google Play.
+        //debuggable true
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+    }
+    debug {
+        debuggable true
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+    }
+}
+```
+
+and finally I added a `splits` section inside `android`:
+```groovy
+splits {
+    abi {
+        enable true
+        reset()
+        include 'x86', 'armeabi-v7a'
+        universalApk true
+    }
+}
+```
+
 ## Welcome!
 This GitHub repository contains the source code that is used to build an Android app to control a *FIRST* Tech Challenge competition robot.  To use this SDK, download/clone the entire project to your local computer.
 
