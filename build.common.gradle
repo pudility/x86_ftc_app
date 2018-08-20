@@ -98,15 +98,22 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 
-    sourceSets.main {
-        jni.srcDirs = []
-        jniLibs.srcDir rootProject.file('libs')
+    sourceSets {
+        main {
+            jni.srcDirs = []
+            jniLibs.srcDir rootProject.file('libs')
+        }
+
+        armv7a {
+            jniLibs.srcDir rootProject.file('armeabi-v7a')
+        }
     }
 }
 
 repositories {
     flatDir {
         dirs rootProject.file('libs')
+        dirs rootProject.file('armeabi-v7a')
     }
 }
 apply from: 'build.release.gradle'
